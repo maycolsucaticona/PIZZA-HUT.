@@ -57,7 +57,6 @@ public class Pizza_Hut {
                                             System.out.println();
                                             System.out.println("seleccione e ingrese");
                                             opcion=SC.nextInt();
-                                            //sisssssssss
                                             switch(opcion) {
                                                 case 1:
                                                     do {
@@ -169,7 +168,7 @@ public class Pizza_Hut {
                                                         switch (metodo_de_pago){
                                                             case 1:
                                                                 pagoEfectivo(SC,precioFinal);
-                                                                System.out.println();
+
                                                                 break;
                                                             case 2:
                                                                 validaPagoTarjeta(SC,precioFinal);
@@ -279,7 +278,7 @@ public class Pizza_Hut {
                                             opcion=SC.nextInt();
                                             switch (opcion){
                                                 case 1:
-                                                    System.out.println("-----------Mega Promos--------");
+                                                    System.out.println("--------------------------------");
                                                     System.out.println("Doble o Nada Familiar -8%" + "S/ 72.90");
                                                     System.out.println("Doble o Nada Familiar Hut Cheese");
                                                     System.out.println("Tripack Grande Hut Cheese");
@@ -350,7 +349,6 @@ public class Pizza_Hut {
                                                     }
                                                     break;
                                                 case 2:
-                                                    System.out.println("------------Para Mi--------");
                                                     System.out.println("Pizza Roll Hawaiano");
                                                     System.out.println("Pizza Roll Full Meat");
                                                     System.out.println("Pizza Roll Americano");
@@ -402,7 +400,6 @@ public class Pizza_Hut {
                                                     switch (metodo_de_pago){
                                                         case 1:
                                                             pagoEfectivo(SC,precioFinal);
-                                                            System.out.println();
                                                             break;
                                                         case 2:
                                                             validaPagoTarjeta(SC,precioFinal);
@@ -467,7 +464,6 @@ public class Pizza_Hut {
                                                 System.out.println("3-.Grande");
                                                 System.out.println("4-.Familiar");
                                                 selectamanopizza=SC.nextInt();
-
                                                 switch (selectamanopizza){
                                                     case 1:
                                                         break;
@@ -494,6 +490,7 @@ public class Pizza_Hut {
                                                 selectipomasa =SC.nextInt();
                                                 System.out.println("=================================================");
                                                 System.out.println("ingrese la cantidad de pizzas");
+                                                cantidad_produc=SC.nextInt();
                                                 switch (selectipomasa){
                                                     case 1:
                                                     case 2:
@@ -508,37 +505,37 @@ public class Pizza_Hut {
                                                 switch (opcionCarta) {
                                                     case 1:
                                                         precio += 12.90;
-                                                        precioFinal = precio;
+                                                        precioFinal = precio*cantidad_produc;
                                                         System.out.println("Total a pagar: S/" + precioFinal);
                                                         break;
                                                     case 2:
                                                         break;
                                                     case 3:
                                                         precio +=15.90;
-                                                        precioFinal = precio ;
+                                                        precioFinal = precio*cantidad_produc;
                                                         System.out.println("Total a pagar: S/" + precioFinal);
                                                         break;
                                                     case 4:
                                                         precio +=9.90;
-                                                        precioFinal = precio ;
+                                                        precioFinal = precio*cantidad_produc;
                                                         System.out.println("Total a pagar: S/" + precioFinal);
                                                         break;
                                                     case 5:
                                                     case 6:
                                                     case 7:
                                                         precio += 32.90;
-                                                        precioFinal = precio ;
+                                                        precioFinal = precio*cantidad_produc;
                                                         System.out.println("Total a pagar: S/" + precioFinal);
                                                         break;
                                                     case 8:
                                                     case 9:
                                                         precio +=27.90;
-                                                        precioFinal = precio ;
+                                                        precioFinal = precio*cantidad_produc;
                                                         System.out.println("Total a pagar: S/" + precioFinal);
                                                         break;
                                                     case 10:
                                                         precio +=22.90;
-                                                        precioFinal = precio;
+                                                        precioFinal = precio*cantidad_produc;
                                                         System.out.println("Total a pagar: S/" + precioFinal);
                                                         break;
                                                     case 11:
@@ -547,17 +544,18 @@ public class Pizza_Hut {
                                                     default:
                                                         System.out.println("❌ Opción inválida.");
                                                 }
+                                                System.out.println("total a pagar:"+precioFinal);
                                                 System.out.println("=====seleccione el metodo para pagar======");
                                                 System.out.println("1-.pagar en efectivo");
                                                 System.out.println("2-.pagar con tarjeta");
                                                 metodo_de_pago=SC.nextInt();
                                                 switch (metodo_de_pago){
                                                     case 1:
-
+                                                        datos_del_cliente();
                                                         pagoEfectivo(SC,precioFinal);
-                                                        System.out.println();
                                                         break;
                                                     case 2:
+                                                        datos_del_cliente();
                                                         validaPagoTarjeta(SC,precioFinal);
                                                         break;
                                                 }
@@ -632,9 +630,11 @@ public class Pizza_Hut {
                                                 metodo_de_pago=SC.nextInt();
                                                 switch (metodo_de_pago){
                                                     case 1:
+                                                        datos_del_cliente();
                                                         pagoEfectivo(SC,precioFinal);
                                                         break;
                                                     case 2:
+                                                        datos_del_cliente();
                                                         validaPagoTarjeta(SC,precioFinal);
                                                         break;
                                                 }
@@ -710,9 +710,11 @@ public class Pizza_Hut {
                                             metodo_de_pago=SC.nextInt();
                                             switch (metodo_de_pago){
                                                 case 1:
+                                                    datos_del_cliente();
                                                     pagoEfectivo(SC,precioFinal);
                                                     break;
                                                 case 2:
+                                                    datos_del_cliente();
                                                     validaPagoTarjeta(SC,precioFinal);
                                                     break;
                                             }
@@ -723,7 +725,7 @@ public class Pizza_Hut {
                                             System.out.println("Pizza Roll Americano");
                                             System.out.println("Pizza Roll Parrillero");
                                             System.out.println("Combo Pizza Roll Hawaiana");
-                                            System.out.println("Combo Pizza Roll Full Meat\n");
+                                            System.out.println("Combo Pizza Roll Full Meat");
                                             System.out.println("Combo Pizza Roll Americano");
                                             System.out.println("Combo Pizza Roll Parrillero");
                                             System.out.println("Combo Duo Pizza Roll");
@@ -768,10 +770,11 @@ public class Pizza_Hut {
                                             metodo_de_pago=SC.nextInt();
                                             switch (metodo_de_pago){
                                                 case 1:
+                                                    datos_del_cliente();
                                                     pagoEfectivo(SC,precioFinal);
-                                                    System.out.println();
                                                     break;
                                                 case 2:
+                                                    datos_del_cliente();
                                                     validaPagoTarjeta(SC,precioFinal);
                                                     break;
                                             }
@@ -851,6 +854,9 @@ public class Pizza_Hut {
     public static void validaPagoTarjeta(Scanner escaner, double total) {
         String nroTarjeta, fechaVencimiento, cvv;
         boolean pAprovado = false;
+        double igv=total*0.18;
+        double subtotal=total-igv;
+        double totalimporte=subtotal+igv;
         System.out.println("Monto total a pagar con tarjeta es:" + total);
         do {
             escaner.nextLine();
@@ -878,6 +884,10 @@ public class Pizza_Hut {
             }
             if (tarjetaOk&&fechaEstructuraOk&&fechaNoVencida) {
                 System.out.println(" Autorizando fondos... transaccion exitosa");
+                System.out.println("BOLETA DE VENTA");
+                System.out.println("op gravada:"+subtotal);
+                System.out.println("IGV:"+igv);
+                System.out.println("total:"+totalimporte);
                 pAprovado = true;
             } else {
                 System.out.println("Operación denegada por la pasarela bancaria");
@@ -898,45 +908,7 @@ public class Pizza_Hut {
         }
         while (!pAprovado);
     }
-    public static String loginUsuario(Scanner escaner) {
-        String correoIn, passIn;
-        boolean ingresoExitoso = false;
-        String nombre = " Prueba ";
-        System.out.println(" -----INICIAR SESION------");
-        do {
-            System.out.println("Ingrese su correo ");
-            correoIn = escaner.nextLine();
-            System.out.println("Ingrese su contraseña");
-            passIn = escaner.nextLine();
-            boolean estructuraCorreoOk = correoIn.contains("@") && correoIn.endsWith(".com");
-            boolean estructuraPassOk = passIn.length() >= 8 && (passIn.contains("#") || (passIn.contains("@")));
-            if (!estructuraCorreoOk || !estructuraPassOk) {
-                System.out.println("Error, los datos no cumplen requisitos:");
-                if (!estructuraCorreoOk) {
-                    System.out.println(" El correo debe contener @ y terminar en . com ");
-                }
-                if (!estructuraPassOk) {
-                    System.out.println("La contraseña debe tener minimo 8 caracteres y uno de estos caracteres especiales: # @)");
-                }
-                System.out.println("¿Desea cancelar el inicio de sesion (S/N)?");
-                String cancelar = escaner.nextLine();
-                if (cancelar.equalsIgnoreCase("S")) {
-                    break;
-                } else {
-                    continue;
-                }
-            }
-            if (correoIn.equals("admin@gmail.com") && passIn.equals("12345678@")) {
-                System.out.println("Ingreso exitoso a Pizza Hut");
-                ingresoExitoso = true;
-                System.out.println("Bienvenido " + nombre);
-            } else {
-                System.out.println("Credenciales no válidas");
-            }
-        }
-        while (!ingresoExitoso);
-        return nombre;
-    }
+
     public static void pagoEfectivo(Scanner teclado, double totalFinal) {
         double dinero;
         double vuelto;
@@ -955,6 +927,7 @@ public class Pizza_Hut {
             System.out.println("total:S/."+total);
             System.out.println("Vuelto: S/ " + vuelto);
             System.out.println("-------------------------------");
+            System.out.println("desea cerrar?");
         } else {
             System.out.println("Dinero insuficiente");
         }
