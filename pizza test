@@ -1,0 +1,967 @@
+
+import java.util.Scanner;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+public class Pizza_Hut {
+    public static void main(String[] args) {
+        Scanner SC = new Scanner(System.in);
+        double precio = 0.00;
+        double descuento ;
+        double totalPagar = 0;
+        double precioFinal = 0.00;
+        int metodo_de_pago;
+        int selectipomasa,selectamanopizza,cantidad_produc;
+        int menu;
+        int opcion = 0;
+        int opcionCarta;
+        String usuarioRegistrado = "";
+        String claveRegistrada = "";
+        boolean yaExisteRegistro = false;
+        do {
+            System.out.println("-----------------------");
+            System.out.println("      PIZZA HUT       ");
+            System.out.println("------------------------");
+            System.out.println("1.-Iniciar Sesion");
+            System.out.println("2.-Entrar como invitado");
+            System.out.println("3.-Registrarse");
+            System.out.println("4.-Salir");
+            System.out.print("Seleccione: ");
+            if (SC.hasNextInt()) {
+                opcion = SC.nextInt();
+                switch (opcion) {
+                    case 1:
+                        if (!yaExisteRegistro) {
+                            System.out.println("❌ Error: No hay usuarios registrados.");
+                        } else {
+                            System.out.print("Usuario: ");
+                            String usuario = SC.next();
+                            System.out.print("Contraseña: ");
+                            String contraseña = SC.next();
+                            if (usuario.equals(usuarioRegistrado) && contraseña.equals(claveRegistrada)) {
+                                System.out.println("✔️ Ingreso correcto. Bienvenido.");
+                                do {
+                                    System.out.println("====================================");
+                                    System.out.println("          PIZZA HUT PERÚ");
+                                    System.out.println("====================================");
+                                    System.out.println("1. Carta");
+                                    System.out.println("2. Promociones");
+                                    System.out.println("3. Volver al Menú de Inicio");
+                                    System.out.println("=====================================");
+                                    System.out.print("Seleccione una opción: ");
+                                    menu = SC.nextInt();
+                                    switch (menu) {
+                                        case 1:System.out.println("1-Pizzas");
+                                            System.out.println("2-Bebidas");
+                                            System.out.println("3-Antojitos");
+                                            System.out.println();
+                                            System.out.println("seleccione e ingrese");
+                                            opcion=SC.nextInt();
+                                            //sisssssssss
+                                            switch(opcion) {
+                                                case 1:
+                                                    do {
+                                                        System.out.println("============= CARTA =============");
+                                                        System.out.println("1. Pizza Pepperoni      desde- S/12.90   | ");
+                                                        System.out.println("2. Pizza Suprema        desde- S/15.90   | ");
+                                                        System.out.println("3. Pizza Hawaiana       desde- S/15.90   | ");
+                                                        System.out.println("4. Pizza Americana      desde- S/9.90   | ");
+                                                        System.out.println("5. Pizza Meat Lovers    desde- S/32.90   15%DESC| ");
+                                                        System.out.println("6. Pizza Chicken BBQ    desde- S/32.90   | ");
+                                                        System.out.println("7. Pizza Veggie Lovers  desde- S/32.90   | ");
+                                                        System.out.println("8. Pizza Continental    desde- S/27.90   | ");
+                                                        System.out.println("9. Pizza Vegetariana    desde- S/27.90   | ");
+                                                        System.out.println("10. Pizza Mozarella     desde- S/12.90   | ");
+                                                        System.out.println("ingrese la opcion");
+                                                        opcionCarta = SC.nextInt();
+                                                        System.out.println("==============================================");
+                                                        System.out.println("seleccione el tamaño de la pizza");
+                                                        System.out.println("1-.Personal");
+                                                        System.out.println("2-.Mediana");
+                                                        System.out.println("3-.Grande");
+                                                        System.out.println("4-.Familiar");
+                                                        selectamanopizza=SC.nextInt();
+                                                        switch (selectamanopizza){
+                                                            case 1:
+                                                                break;
+                                                            case 2:
+                                                                precio +=precio+10;
+                                                                break;
+                                                            case 3:
+                                                                precio +=precio+19;
+                                                                break;
+                                                            case 4:
+                                                                precio +=precio+25;
+                                                                break;
+                                                            default:
+                                                                System.out.println("opcion no valida");
+                                                        }
+                                                        System.out.println("=======================");
+                                                        System.out.println("seleccione el tipo de masa");
+                                                        System.out.println("=================================");
+                                                        System.out.println("1-.Pan Pizza");
+                                                        System.out.println("2-.Artesanal");
+                                                        System.out.println("3-.Delgado");
+                                                        System.out.println("4-.Hut Chesse");
+                                                        System.out.println("==========================");
+                                                        selectipomasa =SC.nextInt();
+                                                        System.out.println("ingrese la cantidad de pizzas ");
+                                                        cantidad_produc=SC.nextInt();
+                                                        switch (selectipomasa){
+                                                            case 1:
+                                                            case 2:
+                                                            case 3:
+                                                                break;
+                                                            case 4:
+                                                                precio+=precio+7;
+                                                                break;
+                                                            default:
+                                                                System.out.println("opcion no valida");
+                                                        }
+                                                        switch (opcionCarta) {
+                                                            case 1:
+                                                                precio += 12.90;
+                                                                precioFinal = precio*cantidad_produc;
+                                                                System.out.println("Total a pagar: S/" + precioFinal);
+                                                                break;
+                                                            case 2:
+                                                            case 3:
+                                                                precio +=15.90;
+                                                                precioFinal = precio*cantidad_produc;
+                                                                System.out.println("Total a pagar: S/" + precioFinal);
+                                                                break;
+                                                            case 4:
+                                                                precio +=9.90;
+                                                                precioFinal = precio*cantidad_produc;
+                                                                System.out.println("Total a pagar: S/" + precioFinal);
+                                                                break;
+                                                            case 5:
+                                                                descuento=precio*0.15;
+                                                                precioFinal=(precio-descuento)*cantidad_produc;
+                                                                break;
+                                                            case 6:
+                                                            case 7:
+                                                                precio += 32.90;
+                                                                precioFinal = precio*cantidad_produc;
+                                                                System.out.println("Total a pagar: S/" + precioFinal);
+                                                                break;
+                                                            case 8:
+                                                            case 9:
+                                                                precio +=27.90;
+                                                                precioFinal = precio*cantidad_produc;
+                                                                System.out.println("Total a pagar: S/" + precioFinal);
+                                                                break;
+                                                            case 10:
+                                                                precio +=22.90;
+                                                                precioFinal = precio*cantidad_produc;
+                                                                System.out.println("Total a pagar: S/" + precioFinal);
+                                                                break;
+                                                            case 11:
+                                                                System.out.println("Regresando al menú de invitado...");
+                                                                break;
+                                                            default:
+                                                                System.out.println("❌ Opción inválida.");
+                                                        }
+                                                        System.out.println("=====seleccione el metodo para pagar======");
+                                                        System.out.println("1-.pagar en efectivo");
+                                                        System.out.println("2-.pagar con tarjeta");
+                                                        metodo_de_pago=SC.nextInt();
+                                                        switch (metodo_de_pago){
+                                                            case 1:
+                                                                pagoEfectivo(SC,precioFinal);
+                                                                System.out.println();
+                                                                break;
+                                                            case 2:
+                                                                validaPagoTarjeta(SC,precioFinal);
+                                                                break;
+                                                        }
+                                                    } while (opcionCarta != 11);
+                                                    break;
+                                                case 2:
+                                                    System.out.println("=========================");
+                                                    bebidas_menu();
+                                                    System.out.println("ingrese un opcion");
+                                                    opcion = SC.nextInt();
+                                                    System.out.println("ingrese la cantidad de bebidas");
+                                                    int cantidad_bebidas = SC.nextInt();
+                                                    totalPagar += bebidas(opcion, cantidad_bebidas);
+                                                    System.out.println("su total pagar es:S/." + totalPagar);
+                                                    System.out.println("=====seleccione el metodo para pagar======");
+                                                    System.out.println("1-.pagar en efectivo");
+                                                    System.out.println("2-.pagar con tarjeta");
+                                                    metodo_de_pago=SC.nextInt();
+                                                    switch (metodo_de_pago){
+                                                        case 1:
+                                                            pagoEfectivo(SC,precioFinal);
+                                                            System.out.println();
+                                                            break;
+                                                        case 2:
+                                                            validaPagoTarjeta(SC,precioFinal);
+                                                            break;
+                                                    }
+                                                    break;
+                                                case 3:
+                                                    do {
+                                                        System.out.println("-----------------------------------------");
+                                                        System.out.println("          SECCION DE ANTOJITOS           ");
+                                                        System.out.println("-----------------------------------------");
+                                                        System.out.println("1.- Rolls de Jamon & Queso ---- S/ 13.90");
+                                                        System.out.println("2.- Alitas BBQ o Hut ---------- S/ 15.90");
+                                                        System.out.println("3.- Hut Bread (8 unidades) ---- S/ 13.90");
+                                                        System.out.println("4.- Rolls de Manjar ----------- S/  9.90");
+                                                        System.out.println("5.- Pizza Kit Kat ------------- S/ 19.90");
+                                                        System.out.println("6.- Palitos a la Siciliana ---- S/  9.90");
+                                                        System.out.println("7.- Pan al Ajo (4 unidades) ---- S/ 10.90");
+                                                        System.out.println("8.- Pan al Ajo Especial ------- S/ 13.90");
+                                                        System.out.println("9.- Hut Churros --------------- S/  5.90");
+                                                        System.out.println("10.- Salsa Chili Thai --------- S/  1.50");
+                                                        System.out.println("11.- Salir");
+                                                        System.out.println("-----------------------------------------");
+                                                        System.out.print("Seleccione un antojito: ");
+                                                        opcion = SC.nextInt();
+                                                        if (opcion==11) {
+                                                            System.out.println("Saliendo de la seccion...");
+                                                            break;
+                                                        }
+                                                        if (opcion>=1&&opcion<=10) {
+                                                            System.out.print("Ingrese la cantidad: ");
+                                                            int cantidad = SC.nextInt();
+                                                            switch (opcion) {
+                                                                case 3:
+                                                                case 8:
+                                                                case 1: totalPagar = 13.90 *cantidad;
+                                                                    break;
+                                                                case 2: totalPagar = 15.90 *cantidad;
+                                                                    break;
+                                                                case 6:
+                                                                case 4: totalPagar = 9.90 *cantidad;
+                                                                    break;
+                                                                case 5: totalPagar = 19.90 *cantidad;
+                                                                    break;
+                                                                case 7: totalPagar = 10.90 *cantidad;
+                                                                    break;
+                                                                case 9: totalPagar = 5.90 *cantidad;
+                                                                    break;
+                                                                case 10: totalPagar = 1.50 *cantidad;
+                                                                    break;
+                                                                default:
+                                                                    System.out.println("opcion no válida");
+                                                            }
+                                                            System.out.println("-----------------------------------------");
+                                                            System.out.println("TOTAL A PAGAR: S/ " + totalPagar);
+                                                            System.out.println("-----------------------------------------");
+                                                            System.out.println("=====seleccione el metodo para pagar======");
+                                                            System.out.println("1-.pagar en efectivo");
+                                                            System.out.println("2-.pagar con tarjeta");
+                                                            metodo_de_pago=SC.nextInt();
+                                                            switch (metodo_de_pago){
+                                                                case 1:
+                                                                    pagoEfectivo(SC,precioFinal);
+                                                                    System.out.println();
+                                                                    break;
+                                                                case 2:
+                                                                    validaPagoTarjeta(SC,precioFinal);
+                                                                    break;
+                                                            }
+                                                        } else {
+                                                            System.out.println("Opcion no valida. Elija un numero del 1 al 11.");
+                                                        }
+
+                                                    } while (opcion!=11);
+                                                    break;
+                                            }
+                                        case 2:
+                                            System.out.println("========== PROMOCIONES ==========");
+                                            System.out.println("1-Mega Promos");
+                                            System.out.println("2-Para Mi");
+                                            System.out.println("--------------------------------");
+                                            System.out.println("ingrese una opcion");
+                                            opcion=SC.nextInt();
+                                            switch (opcion){
+                                                case 1:
+                                                    System.out.println("--------------------------------");
+                                                    System.out.println("Doble o Nada Familiar -8%" + "S/ 72.90");
+                                                    System.out.println("Doble o Nada Familiar Hut Cheese");
+                                                    System.out.println("Tripack Grande Hut Cheese");
+                                                    System.out.println("Combo Doble o Nada Grande");
+                                                    System.out.println("Combo Semi Full Grande");
+                                                    System.out.println("Tripack Familiar");
+                                                    System.out.println("Triple Hut Box");
+                                                    System.out.println("Combo Triple Hut Box");
+                                                    System.out.println("Tripack Grande");
+                                                    System.out.println("Combo Tripack Grande Hut Cheese");
+                                                    System.out.println("--------------------------------");
+                                                    System.out.println("ingrese su opción");
+                                                    opcionCarta = SC.nextInt();
+                                                    System.out.println("ingrese la cantidad del producto  ");
+                                                    cantidad_produc=SC.nextInt();
+                                                    switch (opcionCarta) {
+                                                        case 1:
+                                                            precio = 72.90;
+                                                            precioFinal = precio*cantidad_produc;
+                                                            break;
+                                                        case 2:
+                                                            precio = 79.90;
+                                                            precioFinal = precio*cantidad_produc;
+                                                            break;
+                                                        case 3:
+                                                            precio = 94.90;
+                                                            precioFinal = precio*cantidad_produc;
+                                                            break;
+                                                        case 4:
+                                                        case 5:
+                                                            precio = 59.90;
+                                                            precioFinal = precio*cantidad_produc;
+                                                            break;
+                                                        case 7:
+                                                            precio = 64.90;
+                                                            precioFinal = precio*cantidad_produc;
+                                                            break;
+                                                        case 8:
+                                                            precio = 69.90;
+                                                            precioFinal = precio*cantidad_produc;
+                                                            break;
+                                                        case 9:
+                                                            precio = 79.99;
+                                                            precioFinal = precio*cantidad_produc;
+                                                            break;
+                                                        case 6:
+                                                        case 10:
+                                                            precio = 99.90;
+                                                            precioFinal = precio*cantidad_produc;
+                                                            break;
+                                                        default:
+                                                            System.out.println("opción no válida");
+                                                    }
+                                                    System.out.println("total:"+precioFinal);
+                                                    System.out.println("=====seleccione el metodo para pagar======");
+                                                    System.out.println("1-.pagar en efectivo");
+                                                    System.out.println("2-.pagar con tarjeta");
+                                                    metodo_de_pago=SC.nextInt();
+                                                    switch (metodo_de_pago){
+                                                        case 1:
+                                                            pagoEfectivo(SC,precioFinal);
+                                                            System.out.println();
+                                                            break;
+                                                        case 2:
+                                                            validaPagoTarjeta(SC,precioFinal);
+                                                            break;
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    System.out.println("Pizza Roll Hawaiano");
+                                                    System.out.println("Pizza Roll Full Meat");
+                                                    System.out.println("Pizza Roll Americano");
+                                                    System.out.println("Pizza Roll Parrillero");
+                                                    System.out.println("Combo Pizza Roll Hawaiana");
+                                                    System.out.println("Combo Pizza Roll Full Meat\n");
+                                                    System.out.println("Combo Pizza Roll Americano");
+                                                    System.out.println("Combo Pizza Roll Parrillero");
+                                                    System.out.println("Combo Duo Pizza Roll");
+                                                    System.out.println("My Box Clásico");
+                                                    opcionCarta = SC.nextInt();
+                                                    switch (opcionCarta) {
+                                                        case 1:
+                                                        case 4:
+                                                            precio = 15.90;
+                                                            precioFinal = precio;
+                                                            break;
+                                                        case 2:
+                                                        case 7:
+                                                            precio = 13.90;
+                                                            precioFinal = precio;
+                                                            break;
+                                                        case 5:
+                                                        case 8:
+                                                            precio = 16.90;
+                                                            precioFinal = precio;
+                                                            break;
+                                                        case 3:
+                                                            precio = 12.90;
+                                                            precioFinal = precio;
+                                                            break;
+                                                        case 10:
+                                                        case 6:
+                                                            precio = 14.90;
+                                                            precioFinal = precio;
+                                                            break;
+                                                        case 9:
+                                                            precio = 29.90;
+                                                            precioFinal=precio;
+                                                            break;
+                                                        default:
+                                                            System.out.println("opción no válida");
+                                                    }
+                                                    System.out.println("total"+precioFinal);
+                                                    System.out.println("=====seleccione el metodo para pagar======");
+                                                    System.out.println("1-.pagar en efectivo");
+                                                    System.out.println("2-.pagar con tarjeta");
+                                                    metodo_de_pago=SC.nextInt();
+                                                    switch (metodo_de_pago){
+                                                        case 1:
+                                                            pagoEfectivo(SC,precioFinal);
+                                                            System.out.println();
+                                                            break;
+                                                        case 2:
+                                                            validaPagoTarjeta(SC,precioFinal);
+                                                            break;
+                                                    }
+                                            }
+                                            break;
+                                        case 3:
+                                            System.out.println("Regresando al menú de inicio...");
+                                            break;
+
+                                        default:
+                                            System.out.println("❌ Opción inválida.");
+                                    }
+                                } while (menu != 3);
+                                break;
+                            }
+                            else {
+                                System.out.println("❌ Datos incorrectos.");
+                            }
+                        }
+                        break;
+                    case 2:
+                        System.out.println("Entrando como invitado...");
+                        do {
+                            System.out.println("====================================");
+                            System.out.println("          PIZZA HUT PERÚ");
+                            System.out.println("====================================");
+                            System.out.println("1. Carta");
+                            System.out.println("2. Promociones");
+                            System.out.println("3. Volver al Menú de Inicio");
+                            System.out.println("=====================================");
+                            System.out.print("Seleccione una opción: ");
+                            menu = SC.nextInt();
+                            switch (menu) {
+                                case 1:
+                                    System.out.println("1-Pizzas");
+                                    System.out.println("2-Bebidas");
+                                    System.out.println("3-Antojitos");
+                                    System.out.println("seleccione e ingrese");
+                                    opcion=SC.nextInt();
+                                    switch(opcion){
+                                        case 1:
+                                            do {
+                                                System.out.println("============= CARTA =============");
+                                                System.out.println("1. Pizza Pepperoni      desde- S/12.90   | ");
+                                                System.out.println("2. Pizza Suprema        desde- S/15.90   | ");
+                                                System.out.println("3. Pizza Hawaiana       desde- S/15.90   | ");
+                                                System.out.println("4. Pizza Americana      desde- S/9.90   | ");
+                                                System.out.println("5. Pizza Meat Lovers    desde- S/32.90   | ");
+                                                System.out.println("6. Pizza Chicken BBQ    desde- S/32.90   | ");
+                                                System.out.println("7. Pizza Veggie Lovers  desde- S/32.90   | ");
+                                                System.out.println("8. Pizza Continental    desde- S/27.90   | ");
+                                                System.out.println("9. Pizza Vegetariana    desde- S/27.90   | ");
+                                                System.out.println("10. Pizza Mozarella     desde- S/12.90   | ");
+                                                System.out.println("ingrese la opcion");
+                                                opcionCarta = SC.nextInt();
+                                                System.out.println("==============================================");
+                                                System.out.println("seleccione el tamaño de la pizza");
+                                                System.out.println("1-.Personal");
+                                                System.out.println("2-.Mediana");
+                                                System.out.println("3-.Grande");
+                                                System.out.println("4-.Familiar");
+                                                selectamanopizza=SC.nextInt();
+
+                                                switch (selectamanopizza){
+                                                    case 1:
+                                                        break;
+                                                    case 2:
+                                                        precio +=precio+10;
+                                                        break;
+                                                    case 3:
+                                                        precio +=precio+19;
+                                                        break;
+                                                    case 4:
+                                                        precio +=precio+25;
+                                                        break;
+                                                    default:
+                                                        System.out.println("opcion no valida");
+                                                }
+                                                System.out.println("=======================");
+                                                System.out.println("seleccione el tipo de masa");
+                                                System.out.println("=================================");
+                                                System.out.println("1-.Pan Pizza");
+                                                System.out.println("2-.Artesanal");
+                                                System.out.println("3-.Delgado");
+                                                System.out.println("4-.Hut Chesse");
+                                                System.out.println("==========================");
+                                                selectipomasa =SC.nextInt();
+                                                System.out.println("=================================================");
+                                                System.out.println("ingrese la cantidad de pizzas");
+                                                switch (selectipomasa){
+                                                    case 1:
+                                                    case 2:
+                                                    case 3:
+                                                        break;
+                                                    case 4:
+                                                        precio+=precio+7;
+                                                        break;
+                                                    default:
+                                                        System.out.println("opcion no valida");
+                                                }
+                                                switch (opcionCarta) {
+                                                    case 1:
+                                                        precio += 12.90;
+                                                        precioFinal = precio;
+                                                        System.out.println("Total a pagar: S/" + precioFinal);
+                                                        break;
+                                                    case 2:
+                                                        break;
+                                                    case 3:
+                                                        precio +=15.90;
+                                                        precioFinal = precio ;
+                                                        System.out.println("Total a pagar: S/" + precioFinal);
+                                                        break;
+                                                    case 4:
+                                                        precio +=9.90;
+                                                        precioFinal = precio ;
+                                                        System.out.println("Total a pagar: S/" + precioFinal);
+                                                        break;
+                                                    case 5:
+                                                    case 6:
+                                                    case 7:
+                                                        precio += 32.90;
+                                                        precioFinal = precio ;
+                                                        System.out.println("Total a pagar: S/" + precioFinal);
+                                                        break;
+                                                    case 8:
+                                                    case 9:
+                                                        precio +=27.90;
+                                                        precioFinal = precio ;
+                                                        System.out.println("Total a pagar: S/" + precioFinal);
+                                                        break;
+                                                    case 10:
+                                                        precio +=22.90;
+                                                        precioFinal = precio;
+                                                        System.out.println("Total a pagar: S/" + precioFinal);
+                                                        break;
+                                                    case 11:
+                                                        System.out.println("Regresando al menú de invitado...");
+                                                        break;
+                                                    default:
+                                                        System.out.println("❌ Opción inválida.");
+                                                }
+                                                System.out.println("=====seleccione el metodo para pagar======");
+                                                System.out.println("1-.pagar en efectivo");
+                                                System.out.println("2-.pagar con tarjeta");
+                                                metodo_de_pago=SC.nextInt();
+                                                switch (metodo_de_pago){
+                                                    case 1:
+                                                        pagoEfectivo(SC,precioFinal);
+                                                        System.out.println();
+                                                        break;
+                                                    case 2:
+                                                        validaPagoTarjeta(SC,precioFinal);
+                                                        break;
+                                                }
+                                            } while (opcionCarta != 11);
+                                            break;
+                                        case 2:
+                                            System.out.println("=========================");
+                                            bebidas_menu();
+                                            System.out.println("ingrese un opcion");
+                                            opcion = SC.nextInt();
+                                            System.out.println("ingrese la cantidad de bebidas");
+                                            int cantidad_bebidas = SC.nextInt();
+                                            totalPagar += bebidas(opcion, cantidad_bebidas);
+                                            System.out.println("su total pagar es:S/." + totalPagar);
+                                            break;
+                                        case 3:
+                                            do {
+                                                System.out.println("-----------------------------------------");
+                                                System.out.println("          SECCION DE ANTOJITOS           ");
+                                                System.out.println("-----------------------------------------");
+                                                System.out.println("1.- Rolls de Jamon & Queso ---- S/ 13.90");
+                                                System.out.println("2.- Alitas BBQ o Hut ---------- S/ 15.90");
+                                                System.out.println("3.- Hut Bread (8 unidades) ---- S/ 13.90");
+                                                System.out.println("4.- Rolls de Manjar ----------- S/  9.90");
+                                                System.out.println("5.- Pizza Kit Kat ------------- S/ 19.90");
+                                                System.out.println("6.- Palitos a la Siciliana ---- S/  9.90");
+                                                System.out.println("7.- Pan al Ajo (4 unidades) ---- S/ 10.90");
+                                                System.out.println("8.- Pan al Ajo Especial ------- S/ 13.90");
+                                                System.out.println("9.- Hut Churros --------------- S/  5.90");
+                                                System.out.println("10.- Salsa Chili Thai --------- S/  1.50");
+                                                System.out.println("11.- Salir");
+                                                System.out.println("-----------------------------------------");
+                                                System.out.print("Seleccione un antojito: ");
+                                                opcion = SC.nextInt();
+                                                if (opcion==11) {
+                                                    System.out.println("Saliendo de la seccion...");
+                                                    break;
+                                                }
+                                                if (opcion>=1&&opcion<=10) {
+                                                    System.out.print("Ingrese la cantidad: ");
+                                                    int cantidad = SC.nextInt();
+                                                    switch (opcion) {
+                                                        case 3:
+                                                        case 8:
+                                                        case 1: totalPagar = 13.90 *cantidad;
+                                                            break;
+                                                        case 2: totalPagar = 15.90 *cantidad;
+                                                            break;
+                                                        case 6:
+                                                        case 4: totalPagar = 9.90 *cantidad;
+                                                            break;
+                                                        case 5: totalPagar = 19.90 *cantidad;
+                                                            break;
+                                                        case 7: totalPagar = 10.90 *cantidad;
+                                                            break;
+                                                        case 9: totalPagar = 5.90 *cantidad;
+                                                            break;
+                                                        case 10: totalPagar = 1.50 *cantidad;
+                                                            break;
+                                                        default:
+                                                            System.out.println("opcion no válida");
+                                                    }
+                                                    System.out.println("-----------------------------------------");
+                                                    System.out.println("TOTAL A PAGAR: S/ " + totalPagar);
+                                                    System.out.println("-----------------------------------------");
+                                                } else {
+                                                    System.out.println("Opcion no valida. Elija un numero del 1 al 11.");
+                                                }
+                                                System.out.println("=====seleccione el metodo para pagar======");
+                                                System.out.println("1-.pagar en efectivo");
+                                                System.out.println("2-.pagar con tarjeta");
+                                                metodo_de_pago=SC.nextInt();
+                                                switch (metodo_de_pago){
+                                                    case 1:
+                                                        pagoEfectivo(SC,precioFinal);
+                                                        System.out.println();
+                                                        break;
+                                                    case 2:
+                                                        validaPagoTarjeta(SC,precioFinal);
+                                                        break;
+                                                }
+                                            } while (opcion!=11);
+                                            break;
+                                    }
+                                    break;
+                                case 2:
+                                    System.out.println("========== PROMOCIONES ==========");
+                                    System.out.println("1-Mega Promos");
+                                    System.out.println("2-Para Mi");
+                                    System.out.println("--------------------------------");
+                                    System.out.println("ingrese una opcion");
+                                    opcion=SC.nextInt();
+                                    switch (opcion){
+                                        case 1:
+                                            System.out.println("------------------------------------------------");
+                                            System.out.println("1. Doble o Nada Familiar -8%          S/ 72.90");
+                                            System.out.println("2. Doble o Nada Familiar Hut Cheese   S/ 79.90");
+                                            System.out.println("3. Tripack Grande Hut Cheese          S/ 94.90");
+                                            System.out.println("4. Combo Doble o Nada Grande          S/ 59.90");
+                                            System.out.println("5. Combo Semi Full Grande             S/ 59.90");
+                                            System.out.println("6. Tripack Familiar                   S/ 99.90");
+                                            System.out.println("7. Triple Hut Box                     S/ 64.90");
+                                            System.out.println("8. Combo Triple Hut Box               S/ 69.90");
+                                            System.out.println("9. Tripack Grande                     S/ 79.99");
+                                            System.out.println("10. Combo Tripack Grande Hut Cheese   S/ 99.90");
+                                            System.out.println("------------------------------------------------");
+                                            System.out.print("Ingrese su opción: ");
+                                            opcionCarta = SC.nextInt();
+                                            switch (opcionCarta) {
+                                                case 1:
+                                                    precio = 72.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 2:
+                                                    precio = 79.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 3:
+                                                    precio = 94.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 4:
+                                                case 5:
+                                                    precio = 59.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 7:
+                                                    precio = 64.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 8:
+                                                    precio = 69.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 9:
+                                                    precio = 79.99;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 6:
+                                                case 10:
+                                                    precio = 99.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                default:
+                                                    System.out.println("opcion no válida");
+                                            }
+                                            System.out.println("total"+precioFinal);
+                                            System.out.println("=====seleccione el metodo para pagar======");
+                                            System.out.println("1-.pagar en efectivo");
+                                            System.out.println("2-.pagar con tarjeta");
+                                            metodo_de_pago=SC.nextInt();
+                                            switch (metodo_de_pago){
+                                                case 1:
+                                                    pagoEfectivo(SC,precioFinal);
+                                                    System.out.println();
+                                                    break;
+                                                case 2:
+                                                    validaPagoTarjeta(SC,precioFinal);
+                                                    break;
+                                            }
+                                            break;
+                                        case 2:
+                                            System.out.println("Pizza Roll Hawaiano");
+                                            System.out.println("Pizza Roll Full Meat");
+                                            System.out.println("Pizza Roll Americano");
+                                            System.out.println("Pizza Roll Parrillero");
+                                            System.out.println("Combo Pizza Roll Hawaiana");
+                                            System.out.println("Combo Pizza Roll Full Meat\n");
+                                            System.out.println("Combo Pizza Roll Americano");
+                                            System.out.println("Combo Pizza Roll Parrillero");
+                                            System.out.println("Combo Duo Pizza Roll");
+                                            System.out.println("My Box Clásico");
+                                            opcionCarta = SC.nextInt();
+                                            switch (opcionCarta) {
+                                                case 1:
+                                                case 4:
+                                                    precio = 15.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 2:
+                                                case 7:
+                                                    precio = 13.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 5:
+                                                case 8:
+                                                    precio = 16.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 3:
+                                                    precio = 12.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 10:
+                                                case 6:
+                                                    precio = 14.90;
+                                                    precioFinal = precio;
+                                                    break;
+                                                case 9:
+                                                    precio = 29.90;
+                                                    precioFinal=precio;
+                                                    break;
+                                                default:
+                                                    System.out.println("opción no válida");
+                                            }
+                                            System.out.println("total:"+precioFinal);
+                                            System.out.println("=====seleccione el metodo para pagar======");
+                                            System.out.println("1-.pagar en efectivo");
+                                            System.out.println("2-.pagar con tarjeta");
+                                            metodo_de_pago=SC.nextInt();
+                                            switch (metodo_de_pago){
+                                                case 1:
+                                                    pagoEfectivo(SC,precioFinal);
+                                                    System.out.println();
+                                                    break;
+                                                case 2:
+                                                    validaPagoTarjeta(SC,precioFinal);
+                                                    break;
+                                            }
+                                    }
+                                    break;
+                                case 3:
+                                    System.out.println("Regresando al menú de inicio...");
+                                    break;
+                                default:
+                                    System.out.println("❌ Opción inválida.");
+                            }
+                        } while (menu != 3);
+                        break;
+                    case 3:
+                        System.out.println("---REGISTRO---");
+                        System.out.print("Cree su nombre de usuario: ");
+                        usuarioRegistrado = SC.next();
+                        System.out.print("Cree su contraseña: ");
+                        claveRegistrada = SC.next();
+                        yaExisteRegistro = true;
+                        System.out.println("✔️ Registro completado con éxito.");
+                        break;
+                    case 4:
+                        System.out.println("Saliendo del sistema...");
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("❌ Opción no válida.");
+                }
+            } else {
+                System.out.println("❌ Opción no válida. Ingrese un número.");
+                SC.next();
+            }
+        } while (opcion != 4);
+        SC.close();
+    }
+    public static double bebidas(int opcion, double cantidad) {
+        double totalPagar=0;
+        switch (opcion){
+            case 1:
+            case 3:
+            case 4:
+            case 5:
+            case 8:
+                totalPagar=4.90*cantidad;
+                break;
+            case 2:
+            case 6:
+            case 7:
+            case 10:
+                totalPagar=8.90*cantidad;
+                break;
+            case 9:
+                totalPagar=3.90*cantidad;
+                break;
+            default:
+                System.out.println("opcion no válida");
+        }
+        return totalPagar;
+    }
+    public static void bebidas_menu(){
+        System.out.println("Sistema de bebidas");
+        System.out.println("========================");
+        System.out.println("elija entre las opciones del 1-10");
+        System.out.println("0-para continuar ");
+        System.out.println("1-Agua San Luis sin Gas Personal S/.4.90");
+        System.out.println("2-Coca Cola Sin Azúcar(1L) S/.8.90");
+        System.out.println("3-Coca Cola personal S/4.90");
+        System.out.println("4-Sprite personal S/.4.90");
+        System.out.println("5-Fanta personal S/.4.90");
+        System.out.println("6-Fanta(1L) S/.8.90");
+        System.out.println("7-Inca Kola Sin Azúcar(1L) S/.8.90");
+        System.out.println("8-Inca Kola personal S/4.90");
+        System.out.println("9-Agua Loa sin gas personal S/.3.90");
+        System.out.println("10-Sprite S/.8.90(1L)");
+    }
+    public static void validaPagoTarjeta(Scanner escaner, double total) {
+        String nroTarjeta, fechaVencimiento, cvv;
+        boolean pAprovado = false;
+        System.out.println("Monto total a pagar con tarjeta es:" + total);
+        do {
+            escaner.nextLine();
+            System.out.println("Ingrese los 16 digitos de la tarjeta");
+            nroTarjeta = escaner.nextLine();
+            System.out.println("Ingrese la fecha de caducidad (MM/AA) ");
+            fechaVencimiento = escaner.nextLine();
+            System.out.println("Ingrese el código de seguridads CVV");
+            cvv = escaner.nextLine();
+
+            boolean tarjetaOk = (nroTarjeta.length() == 16);
+            boolean cvvOk = (cvv.length() == 3);
+            boolean fechaEstructuraOk = (fechaVencimiento.length() == 5 && fechaVencimiento.contains("/"));
+            boolean fechaNoVencida = false;
+            if (fechaEstructuraOk) {
+                try {
+                    //intenta esto
+                    DateTimeFormatter formateador = DateTimeFormatter.ofPattern("MM/yy");
+                    YearMonth fechaTarjeta = YearMonth.parse(fechaVencimiento, formateador);
+                    YearMonth fechaActual = YearMonth.now();
+                    if (fechaTarjeta.isAfter(fechaActual) || fechaTarjeta.equals(fechaActual)) {
+                        fechaNoVencida = true;
+                    }
+                } catch (DateTimeParseException e) {
+                    //muestra el error aqui
+                    fechaEstructuraOk = false;
+                }
+            }
+            if (tarjetaOk && fechaEstructuraOk && fechaNoVencida) {
+                System.out.println(" Autorizando fondos... transaccion exitosa");
+                pAprovado = true;
+            } else {
+                System.out.println("Operación denegada por la pasarela bancaria");
+            }
+            if (!tarjetaOk) {
+                System.out.println("El número de tarjeta debe contener exactamente 16 dígitos");
+            }
+            if (!fechaEstructuraOk) {
+                System.out.println("Formato de fecha incorrecto");
+            }
+            if (fechaEstructuraOk && !fechaNoVencida) {
+                System.out.println("Tarjeta caducada");
+            }
+            if (!cvvOk) {
+                System.out.println("El CVV debe contener 3 dígitos");
+            }
+            System.out.println("Intente nuevamente el pago electrónico");
+
+        }
+        while (!pAprovado);
+    }
+    public static String loginUsuario(Scanner escaner) {
+        String correoIn, passIn;
+        boolean ingresoExitoso = false;
+        String nombre = " Prueba ";
+        System.out.println(" -----INICIAR SESION------");
+        do {
+            System.out.println("Ingrese su correo ");
+            correoIn = escaner.nextLine();
+            System.out.println("Ingrese su contraseña");
+            passIn = escaner.nextLine();
+            boolean estructuraCorreoOk = correoIn.contains("@") && correoIn.endsWith(".com");
+            boolean estructuraPassOk = passIn.length() >= 8 && (passIn.contains("#") || (passIn.contains("@")));
+            if (!estructuraCorreoOk || !estructuraPassOk) {
+                System.out.println("Error, los datos no cumplen requisitos:");
+                if (!estructuraCorreoOk) {
+                    System.out.println(" El correo debe contener @ y terminar en . com ");
+                }
+                if (!estructuraPassOk) {
+                    System.out.println("La contraseña debe tener minimo 8 caracteres y uno de estos caracteres especiales: # @)");
+                }
+                System.out.println("¿Desea cancelar el inicio de sesion (S/N)?");
+                String cancelar = escaner.nextLine();
+                if (cancelar.equalsIgnoreCase("S")) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            if (correoIn.equals("admin@gmail.com") && passIn.equals("12345678@")) {
+                System.out.println("Ingreso exitoso a CineStar");
+                ingresoExitoso = true;
+                System.out.println("Bienvenido " + nombre);
+            } else {
+                System.out.println("Credenciales no válidas");
+            }
+        }
+        while (!ingresoExitoso);
+        return nombre;
+    }
+    public static void pagoEfectivo(Scanner teclado, double totalFinal) {
+        double dinero;
+        double vuelto;
+        double igv=totalFinal*0.18;
+        double subtotal=totalFinal-igv;
+        double total=subtotal+igv;
+        System.out.println("===== PAGO EN EFECTIVO =====");
+        System.out.print("Ingrese dinero: ");
+        dinero = teclado.nextDouble();
+        if (dinero >= totalFinal) {
+            vuelto = dinero - totalFinal;
+            System.out.println("Pago realizado correctamente");
+            System.out.println("------Boleta de venta--------");
+            System.out.println("Subtotal:S/."+subtotal);
+            System.out.println("IGV:S/."+igv);
+            System.out.println("total:S/."+total);
+            System.out.println("Vuelto: S/ " + vuelto);
+            System.out.println("-------------------------------");
+        } else {
+            System.out.println("Dinero insuficiente");
+        }
+    }
+
+}
+
