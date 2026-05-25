@@ -206,7 +206,7 @@ public class Pizza_Hut {
                                                         System.out.println("          SECCION DE ANTOJITOS           ");
                                                         System.out.println("-----------------------------------------");
                                                         System.out.println("1.- Rolls de Jamon & Queso ---- S/ 13.90");
-                                                        System.out.println("2.- Alitas BBQ o Hut ---------- S/ 15.90");
+                                                        System.out.println("2.- Alitas BBQ o Hut ---------- S/ ✖️15.90-->✅");
                                                         System.out.println("3.- Hut Bread (8 unidades) ---- S/ 13.90");
                                                         System.out.println("4.- Rolls de Manjar ----------- S/  9.90");
                                                         System.out.println("5.- Pizza Kit Kat ------------- S/ 19.90");
@@ -340,10 +340,11 @@ public class Pizza_Hut {
                                                     metodo_de_pago=SC.nextInt();
                                                     switch (metodo_de_pago){
                                                         case 1:
+                                                            datos_del_cliente();
                                                             pagoEfectivo(SC,precioFinal);
-                                                            System.out.println();
                                                             break;
                                                         case 2:
+                                                            datos_del_cliente();
                                                             validaPagoTarjeta(SC,precioFinal);
                                                             break;
                                                     }
@@ -551,6 +552,7 @@ public class Pizza_Hut {
                                                 metodo_de_pago=SC.nextInt();
                                                 switch (metodo_de_pago){
                                                     case 1:
+
                                                         pagoEfectivo(SC,precioFinal);
                                                         System.out.println();
                                                         break;
@@ -630,7 +632,6 @@ public class Pizza_Hut {
                                                 switch (metodo_de_pago){
                                                     case 1:
                                                         pagoEfectivo(SC,precioFinal);
-                                                        System.out.println();
                                                         break;
                                                     case 2:
                                                         validaPagoTarjeta(SC,precioFinal);
@@ -709,7 +710,6 @@ public class Pizza_Hut {
                                             switch (metodo_de_pago){
                                                 case 1:
                                                     pagoEfectivo(SC,precioFinal);
-                                                    System.out.println();
                                                     break;
                                                 case 2:
                                                     validaPagoTarjeta(SC,precioFinal);
@@ -854,31 +854,28 @@ public class Pizza_Hut {
         do {
             escaner.nextLine();
             System.out.println("Ingrese los 16 digitos de la tarjeta");
-            nroTarjeta = escaner.nextLine();
+            nroTarjeta=escaner.nextLine();
             System.out.println("Ingrese la fecha de caducidad (MM/AA) ");
-            fechaVencimiento = escaner.nextLine();
+            fechaVencimiento=escaner.nextLine();
             System.out.println("Ingrese el código de seguridads CVV");
             cvv = escaner.nextLine();
-
-            boolean tarjetaOk = (nroTarjeta.length() == 16);
-            boolean cvvOk = (cvv.length() == 3);
-            boolean fechaEstructuraOk = (fechaVencimiento.length() == 5 && fechaVencimiento.contains("/"));
-            boolean fechaNoVencida = false;
+            boolean tarjetaOk=(nroTarjeta.length() == 16);
+            boolean cvvOk=(cvv.length()==3);
+            boolean fechaEstructuraOk=(fechaVencimiento.length()==5 && fechaVencimiento.contains("/"));
+            boolean fechaNoVencida=false;
             if (fechaEstructuraOk) {
                 try {
-                    //intenta esto
-                    DateTimeFormatter formateador = DateTimeFormatter.ofPattern("MM/yy");
-                    YearMonth fechaTarjeta = YearMonth.parse(fechaVencimiento, formateador);
-                    YearMonth fechaActual = YearMonth.now();
-                    if (fechaTarjeta.isAfter(fechaActual) || fechaTarjeta.equals(fechaActual)) {
-                        fechaNoVencida = true;
+                    DateTimeFormatter formateador =DateTimeFormatter.ofPattern("MM/yy");
+                    YearMonth fechaTarjeta =YearMonth.parse(fechaVencimiento, formateador);
+                    YearMonth fechaActual =YearMonth.now();
+                    if (fechaTarjeta.isAfter(fechaActual)||fechaTarjeta.equals(fechaActual)) {
+                        fechaNoVencida=true;
                     }
                 } catch (DateTimeParseException e) {
-                    //muestra el error aqui
                     fechaEstructuraOk = false;
                 }
             }
-            if (tarjetaOk && fechaEstructuraOk && fechaNoVencida) {
+            if (tarjetaOk&&fechaEstructuraOk&&fechaNoVencida) {
                 System.out.println(" Autorizando fondos... transaccion exitosa");
                 pAprovado = true;
             } else {
@@ -897,7 +894,6 @@ public class Pizza_Hut {
                 System.out.println("El CVV debe contener 3 dígitos");
             }
             System.out.println("Intente nuevamente el pago electrónico");
-
         }
         while (!pAprovado);
     }
@@ -930,7 +926,7 @@ public class Pizza_Hut {
                 }
             }
             if (correoIn.equals("admin@gmail.com") && passIn.equals("12345678@")) {
-                System.out.println("Ingreso exitoso a CineStar");
+                System.out.println("Ingreso exitoso a Pizza Hut");
                 ingresoExitoso = true;
                 System.out.println("Bienvenido " + nombre);
             } else {
@@ -962,6 +958,20 @@ public class Pizza_Hut {
             System.out.println("Dinero insuficiente");
         }
     }
-
+    public static void datos_del_cliente(){
+        Scanner leer=new Scanner(System.in);
+        System.out.println("ingrese su nombre");
+        String nombre=leer.nextLine();
+        System.out.println("ingrese su apellido");
+        String apellidos=leer.nextLine();
+        System.out.println("ingrese su dni");
+        String dni=leer.nextLine();
+        System.out.println("ingrese su numero de celular");
+        String numerocel=leer.nextLine();
+        System.out.println("Nombres:"+nombre);
+        System.out.println("Apellidos:"+apellidos);
+        System.out.println("Celular:"+numerocel);
+        System.out.println("DNI:"+dni);
+    }
 }
 
