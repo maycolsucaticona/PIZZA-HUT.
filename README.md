@@ -19,16 +19,13 @@ public class PizzaHut {
                 invitado();
                 menuPrincipal(sc);
                 break;
-
             case 2:
                 registrarse(sc);
                 menuPrincipal(sc);
                 break;
-
             case 3:
                 System.out.println("Gracias por visitar Pizza Hut");
                 break;
-
             default:
                 System.out.println("Opcion invalida");
         }
@@ -86,18 +83,14 @@ public class PizzaHut {
                         System.out.println("8. Pizza Pepperoni");
                         System.out.println("9. Pizza Vegetariana");
                         System.out.println("10. Pizza Suprema");
-
                         System.out.print("Seleccione una pizza: ");
                         opcionPizza = sc.nextInt();
-
                         System.out.println("Seleccione el tamaño:");
                         System.out.println("1. Mediana");
                         System.out.println("2. Grande");
                         System.out.println("3. Familiar");
-
                         System.out.print("Opción: ");
                         opcionTamaño = sc.nextInt();
-
                         switch (opcionPizza) {
                             case 1: //pizza Americana
                                 switch (opcionTamaño) {
@@ -106,7 +99,6 @@ public class PizzaHut {
                                     case 3: precio = 39.90; break;
                                 }
                                 break;
-
                             case 2: //pizza Chicken BBQ
                                 switch (opcionTamaño) {
                                     case 1: precio = 32.90; break;
@@ -114,7 +106,6 @@ public class PizzaHut {
                                     case 3: precio = 51.90; break;
                                 }
                                 break;
-
                             case 3: //pizza Chili Hut
                                 switch (opcionTamaño) {
                                     case 1: precio = 32.90; break;
@@ -122,7 +113,6 @@ public class PizzaHut {
                                     case 3: precio = 51.90; break;
                                 }
                                 break;
-
                             case 4: //pizza Continental
                                 switch (opcionTamaño) {
                                     case 1: precio = 27.90; break;
@@ -130,7 +120,6 @@ public class PizzaHut {
                                     case 3: precio = 44.90; break;
                                 }
                                 break;
-
                             case 5: //pizza Hawaiana
                                 switch (opcionTamaño) {
                                     case 1: precio = 27.90; break;
@@ -138,7 +127,6 @@ public class PizzaHut {
                                     case 3: precio = 44.90; break;
                                 }
                                 break;
-
                             case 6: //pizza Meat Lovers
                                 switch (opcionTamaño) {
                                     case 1: precio = 32.90; break;
@@ -146,7 +134,6 @@ public class PizzaHut {
                                     case 3: precio = 51.90; break;
                                 }
                                 break;
-
                             case 7: //pizza Mozzarella
                                 switch (opcionTamaño) {
                                     case 1: precio = 22.90; break;
@@ -154,7 +141,6 @@ public class PizzaHut {
                                     case 3: precio = 39.90; break;
                                 }
                                 break;
-
                             case 8: //pizza Pepperoni
                                 switch (opcionTamaño) {
                                     case 1: precio = 22.90; break;
@@ -162,7 +148,6 @@ public class PizzaHut {
                                     case 3: precio = 39.90; break;
                                 }
                                 break;
-
                             case 9: //pizza vegetariana
                                 switch (opcionTamaño) {
                                     case 1: precio = 27.90; break;
@@ -170,7 +155,6 @@ public class PizzaHut {
                                     case 3: precio = 44.90; break;
                                 }
                                 break;
-
                             case 10: //pizza suprema
                                 switch (opcionTamaño) {
                                     case 1: precio = 27.90; break;
@@ -178,7 +162,6 @@ public class PizzaHut {
                                     case 3: precio = 44.90; break;
                                 }
                                 break;
-
                             default:
                                 System.out.println("Opción inválida.");
                         }
