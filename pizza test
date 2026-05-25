@@ -279,7 +279,7 @@ public class Pizza_Hut {
                                             opcion=SC.nextInt();
                                             switch (opcion){
                                                 case 1:
-                                                    System.out.println("--------------------------------");
+                                                    System.out.println("-----------Mega Promos--------");
                                                     System.out.println("Doble o Nada Familiar -8%" + "S/ 72.90");
                                                     System.out.println("Doble o Nada Familiar Hut Cheese");
                                                     System.out.println("Tripack Grande Hut Cheese");
@@ -350,6 +350,7 @@ public class Pizza_Hut {
                                                     }
                                                     break;
                                                 case 2:
+                                                    System.out.println("------------Para Mi--------");
                                                     System.out.println("Pizza Roll Hawaiano");
                                                     System.out.println("Pizza Roll Full Meat");
                                                     System.out.println("Pizza Roll Americano");
