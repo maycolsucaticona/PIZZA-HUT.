@@ -1,0 +1,906 @@
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+public class PizzaHut {
+    static ArrayList<String> pizzas = new ArrayList<>();
+    static ArrayList<Double> precioPizza = new ArrayList<>();
+    static ArrayList<String> megaPromos = new ArrayList<>();
+    static ArrayList<Double> precioMegaPromos = new ArrayList<>();
+    static ArrayList<String> paraMi = new ArrayList<>();
+    static ArrayList<Double> precioParMI = new ArrayList<>();
+    static ArrayList<Double> precioBebidas = new ArrayList<>();
+    static ArrayList<String> antojitos = new ArrayList<>();
+    static ArrayList<String> bebidas = new ArrayList<>();
+    static ArrayList<Double> preciodeAntojitos = new ArrayList<>();
+    static String usuarioActivo = "Invitado";
+    static String correoIngresado = "";
+    static String contraseñaIngresada;
+    static ArrayList<String> carritoPizza = new ArrayList<>();
+    static ArrayList<Double> carritoPrecioPizza = new ArrayList<>();
+    static ArrayList<Integer> carritoParaMi = new ArrayList<>();
+    static ArrayList<Integer> carritoMegaPromos = new ArrayList<>();
+    static ArrayList<Double> carritoPrecioMegaPromos = new ArrayList<>();
+    static ArrayList<Integer> carritoAntojitos = new ArrayList<>();
+    static ArrayList<Double> carritoPrecioParaMi = new ArrayList<>();
+    static ArrayList<Integer> carritoBebidas = new ArrayList<>();
+    static String correoRegistrar = "";
+    static String contraseñaRegistrada = "";
+    static boolean esAdmin = false;
+    static Scanner escaner = new Scanner(System.in);
+    static int opcion;
+    public static void main(String[] args) {
+        inicializar_Datos();
+        tituloPizzaHut();
+        iniciodeMenu();
+    }
+    public static void iniciodeMenu() {
+        boolean estado = true;
+        while (estado) {
+            System.out.println(" Status: [ " + usuarioActivo + " ] [ Admin: " + esAdmin + " ]");
+            System.out.println("=== MENÚ DE INICIO ===");
+            System.out.println("1.- Iniciar Sesion");
+            System.out.println("2-. Entrar a la Tienda");
+            System.out.println("3-. Registrarse");
+            System.out.println("4-. Salir");
+            System.out.println("0-. Hoja de reclamos");
+            if (esAdmin){
+                System.out.println("5-Panel de administrador");
+            }
+            System.out.print("Seleccione una opción: ");
+            opcion = escaner.nextInt();
+            escaner.nextLine();
+            switch (opcion) {
+                case 0:
+                    hojaDeReclamos();
+                    break;
+                case 1:
+                    System.out.println("-------Inicio de Sesión-------");
+                    System.out.print("Ingrese el correo: ");
+                    correoIngresado = escaner.nextLine();
+                    System.out.print("Ingrese la contraseña: ");
+                    contraseñaIngresada = escaner.nextLine();
+
+                    if (correoIngresado.equals("adminpizzahut") && contraseñaIngresada.equals("963")) {
+                        esAdmin = true;
+                        usuarioActivo = "Admin";
+                        System.out.println("✔️ Ingreso autorizado. Bienvenido Admin.");
+                        System.out.println(" ");
+                    } else if (!correoRegistrar.isEmpty() && correoIngresado.equals(correoRegistrar) && contraseñaIngresada.equals(contraseñaRegistrada)) {
+                        usuarioActivo = correoIngresado;
+                        esAdmin = false;
+                        System.out.println("✔️ Ingreso correcto. Bienvenido " + usuarioActivo + ".");
+                    } else {
+                        System.out.println("❌ Correo o contraseña incorrectos.");
+                    }
+
+                    break;
+                case 2:
+                    menuTiendaCliente();
+                    break;
+                case 3:
+                    String nuevoCorre="";
+                    while (true){
+                        System.out.println("ingrese su nuevo correo debe contener ´@´");
+                        nuevoCorre=escaner.nextLine();
+                        if (nuevoCorre.contains("@")){
+                            break;
+                        }
+                    }
+                    correoRegistrar=nuevoCorre;
+                    System.out.print("Ingrese su nueva contraseña: ");
+                    contraseñaRegistrada = escaner.nextLine();
+                    System.out.println("--- ✨ Cuenta creada con éxito ---");
+                    break;
+                case 4:
+                    System.out.println("Cerrando sistema. ¡Gracias por visitarnos!");
+                    estado = false;
+                    break;
+                case 5:
+                    if (esAdmin){
+                        menuAdminCRUD();
+                    }
+                    else {
+                        System.out.println("Opción no válida");
+                    }
+                    break;
+                default:
+                    System.out.println("Opción no válida");
+            }
+        }
+    }
+
+    public static void tituloPizzaHut() {
+        System.out.println("\n" +
+                "██████╗░██╗███████╗███████╗░█████╗░  ██╗░░██╗██╗░░░██╗████████╗\n" +
+                "██╔══██╗██║╚════██║╚════██║██╔══██╗  ██║░░██║██║░░░██║╚══██╔══╝\n" +
+                "██████╔╝██║░░███╔═╝░░███╔═╝███████║  ███████║██║░░░██║░░░██║░░░\n" +
+                "██╔═══╝░██║██╔══╝░░██╔══╝░░██╔══██║  ██╔══██║██║░░░██║░░░██║░░░\n" +
+                "██║░░░░░██║███████╗███████╗██║░░██║  ██║░░██║╚██████╔╝░░░██║░░░\n" +
+                "╚═╝░░░░░╚═╝╚══════╝╚══════╝╚═╝░░╚═╝  ╚═╝░░╚═╝░╚═════╝░░░░╚═╝░░░\n");
+    }
+    public static void hojaDeReclamos() {
+        System.out.println("\n=== 📝 HOJA DE RECLAMOS ===");
+        System.out.print("Nombre Completo: ");
+        String nombre = escaner.nextLine();
+        System.out.print("DNI: ");
+        String documento = escaner.nextLine();
+        System.out.print("Tipo (1. Reclamo / 2. Queja): ");
+        int tipo = escaner.nextInt();
+        escaner.nextLine();
+        System.out.print("Detalle su disconformidad: ");
+        String detalle = escaner.nextLine();
+
+        System.out.println("✔️ Enviando reclamo al sistema...");
+        System.out.println("✨ Su reclamo ha sido enviado con éxito. Nos comunicaremos con usted.");
+    }
+    public static void menuAdminCRUD() {
+        int opcionCRUD = 0;
+        while (opcionCRUD != 5) {
+            System.out.println("1.-Registrar producto en el cátalogo");
+            System.out.println("2.-Actulizar producto en el cátalogo");
+            System.out.println("3.-Eliminar producto en el cátalogo");
+            System.out.println("4.-Buscar producto en el cátalogo");
+            System.out.println("5.-Volver al menu principal");
+            opcionCRUD = escaner.nextInt();
+            escaner.nextLine();
+            switch (opcionCRUD) {
+                case 1:
+                    CrudCrear();
+                    break;
+                case 2:
+                    crudModificar();
+                    break;
+                case 3:
+                    eliminarCrud();
+                    break;
+                case 4:
+                    crudBuscar();
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Opción no válida");
+            }
+
+        }
+    }
+    public static void crudBuscar(){
+        System.out.println("--- Buscar producto ---");
+        System.out.print("Ingrese el nombre exacto del producto: ");
+        String buscar = escaner.nextLine();
+        boolean enPizza = pizzas.contains(buscar);
+        boolean enExtras = antojitos.contains(buscar);
+        boolean enBebidas = bebidas.contains(buscar);
+        boolean enMegapromos = megaPromos.contains(buscar);
+        boolean enParami = paraMi.contains(buscar);
+        if (enPizza || enExtras || enBebidas || enMegapromos || enParami){
+            System.out.println("Resultado: '" + buscar + "' SÍ existe en el sistema.");
+            if (enPizza) System.out.println("Tipo: Pizzas. Índice: " + pizzas.indexOf(buscar) + " | Precio: S/." + precioPizza.get(pizzas.indexOf(buscar)));
+            if (enExtras) System.out.println("Tipo: Antojitos. Índice: " + antojitos.indexOf(buscar) + " | Precio: S/." + preciodeAntojitos.get(antojitos.indexOf(buscar)));
+            if (enBebidas) System.out.println("Tipo: Bebidas. Índice: " + bebidas.indexOf(buscar) + " | Precio: S/." + precioBebidas.get(bebidas.indexOf(buscar)));
+            if (enMegapromos) System.out.println("Tipo: Mega promos. Índice: " + megaPromos.indexOf(buscar) + " | Precio: S/." + precioMegaPromos.get(megaPromos.indexOf(buscar)));
+            if (enParami) System.out.println("Tipo: Para mi. Índice: " + paraMi.indexOf(buscar) + " | Precio: S/." + precioParMI.get(paraMi.indexOf(buscar)));
+        } else {
+            System.out.println("El producto '" + buscar + "' no fue encontrado.");
+
+        }
+    }
+    public static void eliminarCrud(){
+        System.out.println("-- Eliminar producto --");
+        System.out.println("1. Eliminar pizza");
+        System.out.println("2. Eliminar antojitos");
+        System.out.println("3. Eliminar bebida");
+        System.out.println("4. Eliminar megapromos");
+        System.out.println("5. Eliminar parami");
+        int tipo = escaner.nextInt();
+        switch (tipo){
+            case 1:
+                imprimirListaPizzaPrecios();
+                System.out.print("Ingrese la posición a eliminar: ");
+                int pos = escaner.nextInt();
+                if (pos >= 0 && pos < pizzas.size()){
+                    pizzas.remove(pos);
+                    precioPizza.remove(pos);
+                    System.out.println("Menú eliminado correctamente.");
+                } else { System.out.println("Posición inválida."); }
+                break;
+            case 2:
+                imprimirListaAntojitosPrecios();
+                System.out.print("Ingrese la posición a eliminar: ");
+                pos = escaner.nextInt();
+                if (pos >= 0 && pos < antojitos.size()) {
+                    antojitos.remove(pos);
+                    preciodeAntojitos.remove(pos);
+                    System.out.println("Extra eliminado correctamente.");
+                } else { System.out.println("Posición inválida."); }
+                break;
+            case 3:
+                imprimirListaBebidasPrecios();
+                System.out.print("Ingrese la posición a eliminar: ");
+                pos = escaner.nextInt();
+                if (pos>=0&&pos<bebidas.size()) {
+                    bebidas.remove(pos);
+                    precioBebidas.remove(pos);
+                    System.out.println("Bebida eliminada correctamente.");
+                } else { System.out.println("Posición inválida."); }
+                break;
+            case 4:
+                imprimirListaMegaPROMOSPrecios();
+                System.out.print("Ingrese la posición a eliminar: ");
+                pos = escaner.nextInt();
+                if (pos>=0&&pos<megaPromos.size()) {
+                    megaPromos.remove(pos);
+                    precioMegaPromos.remove(pos);
+                    System.out.println("Bebida eliminada correctamente.");
+                } else { System.out.println("Posición inválida."); }
+                break;
+            case 5:
+                imprimirListaParamiPrecios();
+                System.out.print("Ingrese la posición a eliminar: ");
+                pos = escaner.nextInt();
+                if (pos >= 0 && pos < paraMi.size()) {
+                    paraMi.remove(pos);
+                    precioParMI.remove(pos);
+                    System.out.println("Bebida eliminada correctamente.");
+                } else { System.out.println("Posición inválida."); }
+                break;
+            default:
+                System.out.println("Opción no válida.");
+        }
+    }
+    public static void crudModificar(){
+        System.out.println("-- Modificar producto --");
+        System.out.println("1. Modificar pizza");
+        System.out.println("2. Modificar extra");
+        System.out.println("3. Modificar bebida");
+        System.out.println("4. Modificar megapromo");
+        System.out.println("5. Modificar parami");
+        int tipo = escaner.nextInt();
+        switch(tipo){
+            case 1:
+                imprimirListaPizzaPrecios();
+                System.out.print("Ingrese la posición a modificar: ");
+                int posicion = escaner.nextInt();
+                escaner.nextLine();
+                if (posicion >= 0 && posicion < pizzas.size()) {
+                    System.out.print("Ingrese el nuevo nombre del menú: ");
+                    pizzas.set(posicion, escaner.nextLine());
+                    System.out.print("Ingrese el nuevo precio del menú: ");
+                    precioPizza.set(posicion, escaner.nextDouble());
+                    escaner.nextLine();
+                    System.out.println("¡Menú Actualizado! ✅");
+                } else { System.out.println("Posición no válida."); }
+                break;
+            case 2:
+                imprimirListaAntojitosPrecios();
+                System.out.print("Ingrese la posición a modificar: ");
+                posicion = escaner.nextInt();
+                escaner.nextLine();
+                if (posicion >= 0 && posicion < antojitos.size()){
+                    System.out.print("Ingrese el nuevo nombre del extra: ");
+                    antojitos.set(posicion, escaner.nextLine());
+                    System.out.print("Ingrese el nuevo precio del extra: ");
+                    preciodeAntojitos.set(posicion, escaner.nextDouble());
+                    escaner.nextLine();
+                    System.out.println("¡Extra Actualizado! ✅");
+                } else { System.out.println("Posición no válida."); }
+                break;
+            case 3:
+                imprimirListaBebidasPrecios();
+                System.out.print("Ingrese la posición a modificar: ");
+                posicion = escaner.nextInt();
+                escaner.nextLine();
+                if (posicion >= 0 && posicion < bebidas.size()){
+                    System.out.print("Ingrese el nuevo nombre de la bebida: ");
+                    bebidas.set(posicion, escaner.nextLine());
+                    System.out.print("Ingrese el nuevo precio de la bebida: ");
+                    precioBebidas.set(posicion, escaner.nextDouble());
+                    escaner.nextLine();
+                    System.out.println("¡Bebida Actualizada! ✅");
+                } else { System.out.println("Posición no válida."); }
+                break;
+            case 4:
+                imprimirListaMegaPROMOSPrecios();
+                System.out.print("Ingrese la posición a modificar: ");
+                posicion = escaner.nextInt();
+                escaner.nextLine();
+                if (posicion >= 0 && posicion < megaPromos.size()) {
+                    System.out.print("Ingrese el nuevo nombre del menú: ");
+                    megaPromos.set(posicion, escaner.nextLine());
+                    System.out.print("Ingrese el nuevo precio del menú: ");
+                    precioMegaPromos.set(posicion, escaner.nextDouble());
+                    escaner.nextLine();
+                    System.out.println("¡Menú Actualizado! ✅");
+                } else { System.out.println("Posición no válida."); }
+                break;
+            case 5:
+                imprimirListaParamiPrecios();
+                System.out.print("Ingrese la posición a modificar: ");
+                posicion = escaner.nextInt();
+                escaner.nextLine();
+                if (posicion >= 0 && posicion < paraMi.size()) {
+                    System.out.print("Ingrese el nuevo nombre del menú: ");
+                    paraMi.set(posicion, escaner.nextLine());
+                    System.out.print("Ingrese el nuevo precio del menú: ");
+                    precioParMI.set(posicion, escaner.nextDouble());
+                    escaner.nextLine();
+                    System.out.println("¡Menú Actualizado! ✅");
+                } else { System.out.println("Posición no válida."); }
+                break;
+            default:
+                System.out.println("Opción no válida.");
+        }
+    }
+
+    public static void mostraRCarta() {
+        System.out.println("-- CARTA DE PRODUCTOS --");
+        System.out.println("---   PIZZAS   ---");
+        imprimirListaPizzaPrecios();
+        System.out.println("---      ANTOJITOS      ---");
+        imprimirListaAntojitosPrecios();
+        System.out.println("---     BEBIDAS      ---");
+        imprimirListaBebidasPrecios();
+        System.out.println("--    MEGA PROMOS   --");
+        imprimirListaMegaPROMOSPrecios();
+        System.out.println("--   PARA MÍ    ---");
+        imprimirListaParamiPrecios();
+    }
+    public static void CrudCrear(){
+        System.out.println("--Registrar nuevo producto----");
+        System.out.println("----1.Añadir nueva pizza ");
+        System.out.println("----2.Añadir nuevo antojito ");
+        System.out.println("----3.Añadir nueva bebida");
+        System.out.println("----4.Añadir nuevo mega promo");
+        System.out.println("----5.Añadir nueva bebida");
+        int tipo=escaner.nextInt();
+        escaner.nextLine();
+        switch(tipo){
+            case 1:
+                System.out.println("Ingrese el nombre del menú");
+                pizzas.add(escaner.nextLine());
+                break;
+            case 2:
+                System.out.println("Ingrese el nombre del extra");
+                antojitos.add(escaner.nextLine());
+                System.out.println("Ingrese el precio del extra");
+                preciodeAntojitos.add(escaner.nextDouble());
+                break;
+            case 3:
+                System.out.println("Ingrese el nombre de la bebida");
+                bebidas.add(escaner.nextLine());
+                System.out.println("Ingrese el precio de la bebida");
+                precioBebidas.add(escaner.nextDouble());
+                break;
+            case 4:
+                System.out.println("Ingrese el nombre del megapromo");
+                megaPromos.add(escaner.nextLine());
+                System.out.println("Ingrese el precio del megapromo");
+                precioMegaPromos.add(escaner.nextDouble());
+                break;
+            case 5:
+                System.out.println("Ingrese el nombre del para mi");
+                paraMi.add(escaner.nextLine());
+                System.out.println("Ingrese el precio del parami");
+                precioParMI.add(escaner.nextDouble());
+                break;
+            default:
+                System.out.println("Opción no válida");
+        }
+    }
+    public static double mostrarCarrito() {
+        System.out.println("--- 🛒 TU CARRITO DE COMPRAS ---");
+        double total = 0;
+        if (carritoPizza.isEmpty() && carritoAntojitos.isEmpty() && carritoBebidas.isEmpty() && carritoMegaPromos.isEmpty() && carritoParaMi.isEmpty()) {
+            System.out.println("[ El carrito está completamente vacío ]");
+            return total;
+        }
+        for (int i = 0; i < carritoPizza.size(); i++) {
+            System.out.println("- " + carritoPizza.get(i) + " -> S/." + carritoPrecioPizza.get(i));
+            total += carritoPrecioPizza.get(i);
+        }
+        for (int idx : carritoAntojitos) {
+            System.out.println("- " + antojitos.get(idx) + " (Antojito) -> S/." + preciodeAntojitos.get(idx));
+            total += preciodeAntojitos.get(idx);
+        }
+        for (int idx : carritoBebidas) {
+            System.out.println("- " + bebidas.get(idx) + " (Bebida) -> S/." + precioBebidas.get(idx));
+            total += precioBebidas.get(idx);
+        }
+        for (int idx : carritoMegaPromos) {
+            System.out.println("- " + megaPromos.get(idx) + " (Mega promos) -> S/." + precioMegaPromos.get(idx));
+            total += precioMegaPromos.get(idx);
+        }
+        for (int idx : carritoParaMi) {
+            System.out.println("- " + paraMi.get(idx) + " (Para mi) -> S/." + precioParMI.get(idx));
+            total += precioParMI.get(idx);
+        }
+        System.out.println("---------------------------------");
+        System.out.println("TOTAL ACUMULADO: S/." + total);
+        return total;
+    }
+    public static void inicializar_Datos() {
+        pizzas.add("Pizza Pepperoni  desde-");
+        precioPizza.add(12.90);
+        pizzas.add("Pizza Suprema desde-");
+        precioPizza.add(15.90);
+        pizzas.add("Pizza Hawaiana desde-");
+        precioPizza.add(15.90);
+        pizzas.add("Pizza Americana desde-");
+        precioPizza.add(9.90);
+        pizzas.add("Pizza Meat Lovers desde-");
+        precioPizza.add(32.90);
+        pizzas.add("Pizza Chiken BBQ desde-");
+        precioPizza.add(32.90);
+        pizzas.add("Pizza Veggie Lovers desde-");
+        precioPizza.add(32.90);
+        pizzas.add("Pizza Continental desde-");
+        precioPizza.add(27.90);
+        pizzas.add("Pizza Vegetatiana desde-");
+        precioPizza.add(27.90);
+        pizzas.add("Pizza Mozarella desde-");
+        precioPizza.add(12.90);
+        antojitos.add("Rolls de Jamon & Queso");
+        preciodeAntojitos.add(13.90);
+        antojitos.add("Alitas BBQ o Hut");
+        preciodeAntojitos.add(15.90);
+        antojitos.add("Hut Bread (8 unidades)");
+        preciodeAntojitos.add(13.90);
+        antojitos.add("Rolls de Manjar");
+        preciodeAntojitos.add(9.90);
+        antojitos.add(" Pizza Kit Kat");
+        preciodeAntojitos.add(19.90);
+        antojitos.add("Palitos a la Siciliana");
+        preciodeAntojitos.add(9.90);
+        antojitos.add("Pan al Ajo (4 unidades)");
+        preciodeAntojitos.add(10.90);
+        antojitos.add("Pan al Ajo Especial");
+        preciodeAntojitos.add(13.90);
+        antojitos.add("Hut Churros");
+        preciodeAntojitos.add(5.90);
+        antojitos.add("Pan al Ajo Especial (4 uni)");
+        preciodeAntojitos.add(13.90);
+        bebidas.add("Agua San Luis sin Gas Personal");
+        precioBebidas.add(4.90);
+        bebidas.add("Coca Cola Sin Azúcar(1L)");
+        precioBebidas.add(8.90);
+        bebidas.add("Coca Cola personal");
+        precioBebidas.add(4.90);
+        bebidas.add("Sprite personal");
+        precioBebidas.add(4.90);
+        bebidas.add("Fanta personal");
+        precioBebidas.add(4.90);
+        bebidas.add("Fanta(1L)");
+        precioBebidas.add(8.90);
+        bebidas.add("Inca Kola Sin Azúcar(1L)");
+        precioBebidas.add(8.90);
+        bebidas.add("Inca Kola personal");
+        precioBebidas.add(4.90);
+        bebidas.add("Agua Loa sabor manzana");
+        precioBebidas.add(2.90);
+        bebidas.add("Sprite (1L)");
+        precioBebidas.add(8.90);
+        megaPromos.add("Doble o Nada Familiar");
+        precioMegaPromos.add(72.90);
+        megaPromos.add("Tripack Grande Hut Cheese");
+        precioMegaPromos.add(79.90);
+        megaPromos.add("Combo Doble o Nada Grande");
+        precioMegaPromos.add(94.90);
+        megaPromos.add("Combo Semi Full Grande");
+        precioMegaPromos.add(59.90);
+        megaPromos.add("Tripack Familia");
+        precioMegaPromos.add(59.90);
+        megaPromos.add("Triple Hut Box");
+        precioMegaPromos.add(99.90);
+        megaPromos.add("Combo Triple Hut Box");
+        precioMegaPromos.add(69.90);
+        megaPromos.add("Tripack Grande");
+        precioMegaPromos.add(79.90);
+        megaPromos.add("Combo Tripack Grande Hut Cheese");
+        precioMegaPromos.add(99.90);
+        paraMi.add("Pizza Roll Hawaiano");
+        precioParMI.add(15.90);
+        paraMi.add("Pizza Roll Full Meat");
+        precioParMI.add(13.90);
+        paraMi.add("Pizza Roll Americano");
+        precioParMI.add(12.90);
+        paraMi.add("Pizza Roll Parrillero");
+        precioParMI.add(15.90);
+        paraMi.add("Combo Pizza Roll Hawaiana");
+        precioParMI.add(16.90);
+        paraMi.add("Combo Pizza Roll Full Meat");
+        precioParMI.add(13.90);
+        paraMi.add("Combo Pizza Roll Americano");
+        precioParMI.add(16.90);
+        paraMi.add("Combo Pizza Roll Parrillero");
+        precioParMI.add(16.90);
+        paraMi.add("Combo Duo Pizza Roll");
+        precioParMI.add(29.90);
+        paraMi.add("My Box Clásico");
+        precioParMI.add(14.90);
+    }
+
+    public static void imprimirListaAntojitosPrecios() {
+        for (int i = 0; i < antojitos.size(); i++) {
+            System.out.println(" " + i + " " + antojitos.get(i) + "S/." + preciodeAntojitos.get(i));
+        }
+    }
+
+    public static void imprimirListaBebidasPrecios() {
+        for (int i = 0; i < bebidas.size(); i++) {
+            System.out.println(" " + i + " " + bebidas.get(i) + "S/." + precioBebidas.get(i));
+        }
+    }
+
+    public static void imprimirListaPizzaPrecios() {
+        for (int i = 0; i < pizzas.size(); i++) {
+            System.out.println(" " + i + " " + pizzas.get(i) + "S/." + precioPizza.get(i));
+        }
+    }
+
+    public static void imprimirListaParamiPrecios() {
+        for (int i = 0; i < paraMi.size(); i++) {
+            System.out.println(" " + i + " " + paraMi.get(i) + "S/." + precioParMI.get(i));
+        }
+    }
+
+    public static void imprimirListaMegaPROMOSPrecios() {
+        for (int i = 0; i < megaPromos.size(); i++) {
+            System.out.println(" " + i + " " + megaPromos.get(i) + "S/." + precioMegaPromos.get(i));
+        }
+    }
+    public static void añadirAlCarrito() {
+        System.out.println("¿Qué categoría deseas agregar?");
+        System.out.println("1. Pizzas");
+        System.out.println("2. Antojitos");
+        System.out.println("3. Bebidas");
+        System.out.println("4. Mega promos");
+        System.out.println("5. Para mí");
+        System.out.print("Seleccione: ");
+        int tipo = escaner.nextInt();
+        switch (tipo) {
+            case 1:
+                imprimirListaPizzaPrecios();
+                System.out.print("Ingrese el número de la pizza que desea: ");
+                int posicion = escaner.nextInt();
+                if (posicion >= 0 && posicion < pizzas.size()) {
+                    double precioFinal = precioPizza.get(posicion);
+                    String detalleTamaño = "";
+                    String detalleMasa = "";
+                    System.out.println("--- Selecciona el Tamaño ---");
+                    System.out.println("1. Personal (+S/. 0.00)");
+                    System.out.println("2. Mediana  (+S/. 13.00)");
+                    System.out.println("3. Grande   (+S/. 23.00)");
+                    System.out.println("4. Familiar (+S/. 31.00)");
+                    System.out.print("Opción: ");
+                    int opcTamaño = escaner.nextInt();
+                    switch (opcTamaño) {
+                        case 1 -> { detalleTamaño = "Personal"; precioFinal += 0.00; }
+                        case 2 -> { detalleTamaño = "Mediana"; precioFinal += 13.00; }
+                        case 3 -> { detalleTamaño = "Grande"; precioFinal += 23.00; }
+                        case 4 -> { detalleTamaño = "Familiar"; precioFinal += 31.00; }
+                        default -> { detalleTamaño = "Mediana"; precioFinal += 13.00; System.out.println("Opción inválida. Asignado Mediana."); }
+                    }
+                    System.out.println("\n--- Selecciona el Tipo de Masa ---");
+                    System.out.println("1. Pan Pizza (+S/. 0.00)");
+                    System.out.println("2. Artesanal (+S/. 0.00)");
+                    System.out.println("3. Hut Cheese (+S/. 8.00)");
+                    System.out.print("Opción: ");
+                    int opcMasa = escaner.nextInt();
+                    switch (opcMasa) {
+                        case 1 -> { detalleMasa = "Pan Pizza"; precioFinal += 0.00; }
+                        case 2 -> { detalleMasa = "Artesanal"; precioFinal += 0.00; }
+                        case 3 -> { detalleMasa = "Hut Cheese"; precioFinal += 8.00; }
+                        default -> { detalleMasa = "Pan Pizza"; precioFinal += 0.00; System.out.println("Opción inválida. Asignado Pan Pizza."); }
+                    }
+                    String pizzaCompuesta = pizzas.get(posicion) + " (" + detalleTamaño + " - Masa " + detalleMasa + ")";
+                    carritoPizza.add(pizzaCompuesta);
+                    carritoPrecioPizza.add(precioFinal);
+                    System.out.println("¡" + pizzaCompuesta + " agregada con éxito! 🛒");
+                } else {
+                    System.out.println("Posición no válida.");
+                }
+                break;
+            case 2:
+                imprimirListaAntojitosPrecios();
+                System.out.print("Ingrese el número de antojitos que desea: ");
+                posicion = escaner.nextInt();
+                if (posicion >= 0 && posicion < antojitos.size()) {
+                    carritoAntojitos.add(posicion);
+                    System.out.println("¡" + antojitos.get(posicion) + " agregado al carrito! 🛒");
+                } else {
+                    System.out.println("Posición no válida.");
+                }
+                break;
+            case 3:
+                imprimirListaBebidasPrecios();
+                System.out.print("Ingrese el número de la bebida que desea: ");
+                posicion = escaner.nextInt();
+                if (posicion >= 0 && posicion < bebidas.size()) {
+                    carritoBebidas.add(posicion);
+                    System.out.println("¡" + bebidas.get(posicion) + " agregado al carrito! 🛒");
+                } else {
+                    System.out.println("Posición no válida.");
+                }
+                break;
+            case 4:
+                imprimirListaMegaPROMOSPrecios();
+                System.out.print("Ingrese el número de el mega promo que desea: ");
+                posicion = escaner.nextInt();
+                if (posicion >= 0 && posicion < megaPromos.size()) {
+                    carritoMegaPromos.add(posicion);
+                    System.out.println("¡" + megaPromos.get(posicion) + " agregado al carrito! 🛒");
+                } else {
+                    System.out.println("Posición no válida.");
+                }
+                break;
+            case 5:
+                imprimirListaParamiPrecios();
+                System.out.print("Ingrese el número del de para mi  que desea: ");
+                posicion = escaner.nextInt();
+                if (posicion >= 0 && posicion < paraMi.size()) {
+                    carritoParaMi.add(posicion);
+                    System.out.println("¡" + paraMi.get(posicion) + " agregado al carrito! 🛒");
+                } else {
+                    System.out.println("Posición no válida.");
+                }
+                break;
+            default:
+                System.out.println("Categoría no válida.");
+        }
+    }
+    public static void seleccionarSede() {
+        System.out.println("=== PEDIDO DE PIZZA ===");
+        System.out.println("¿En qué sede recogerá su pedido?");
+        System.out.println("1. JULIACA");
+        System.out.println("2. PUNO");
+        System.out.println("3. AREQUIPA");
+        System.out.println("4. LIMA");
+        System.out.println("5. TACNA");
+        System.out.print("Seleccione una opción (1-5): ");
+        opcion = escaner.nextInt();
+        switch (opcion) {
+            case 1:
+                System.out.println("Usted selecciono sede JULIACA");
+                break;
+            case 2:
+                System.out.println("Usted selecciono sede PUNO");
+                break;
+            case 3:
+                System.out.println("Usted selecciono sede AREQUIPA");
+                break;
+            case 4:
+                System.out.println("Usted selecciono sede LIMA");
+                break;
+            case 5:
+                System.out.println("Usted selecciono sede TACNA");
+                break;
+            default:
+                System.out.println("OPCION NO VALIDA");
+                break;
+        }
+    }
+    public static void menuTiendaCliente() {
+        int opcionTienda = 0;
+        while (opcionTienda != 5) {
+            System.out.println("--- Pizza Hut🍕🔴 ---");
+            System.out.println("1. Ver Carta Completa");
+            System.out.println("2. Añadir Producto al Carrito");
+            System.out.println("3. Ver mi Carrito y Total");
+            System.out.println("4. Realizar Pago / Enviar Pedido");
+            System.out.println("5. Volver al Menú Principal");
+            System.out.print("Seleccione una opción: ");
+            opcionTienda = escaner.nextInt();
+            escaner.nextLine();
+            switch (opcionTienda) {
+                case 1:
+                    mostraRCarta();
+                    break;
+                case 2:
+                    añadirAlCarrito();
+                    break;
+                case 3:
+                    mostrarCarrito();
+                    break;
+                case 4:
+                    pagarCarrito();
+                    break;
+                case 5:
+
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
+        }
+    }
+    public static void pagarCarrito () {
+        if (carritoPizza.isEmpty() && carritoAntojitos.isEmpty() && carritoBebidas.isEmpty() && carritoMegaPromos.isEmpty() && carritoParaMi.isEmpty()) {
+            System.out.println("No hay productos en el carrito para procesar un pago.");
+            return;
+        }
+        double totalAPagar = 0;
+        for (double p : carritoPrecioPizza) totalAPagar += p;
+        for (int idx : carritoAntojitos) totalAPagar += preciodeAntojitos.get(idx);
+        for (int idx : carritoBebidas) totalAPagar += precioBebidas.get(idx);
+        for (int idx : carritoMegaPromos) totalAPagar += precioMegaPromos.get(idx);
+        for (int idx : carritoParaMi) totalAPagar += precioParMI.get(idx);;
+        System.out.println("=================================");
+        System.out.println(String.format(" TOTAL A PAGAR: S/.%.2f", totalAPagar));
+        System.out.println("=================================");
+        System.out.println("\n--- SELECCIONE MÉTODO DE PAGO ---");
+        System.out.println("1. Efectivo");
+        System.out.println("2. Tarjeta de Crédito/Débito");
+        System.out.println("3. Cancelar Operación");
+        System.out.print("Opción: ");
+        int metodoPago = escaner.nextInt();
+        escaner.nextLine();
+        String tipoPago = "";
+        String nombreArchivo ="";
+        double montoEntregado = 0;
+        double vuelto = 0;
+        if (metodoPago == 1) {
+            tipoPago = "EFECTIVO";
+            nombreArchivo = "Boleta_Efectivo_PizzaHut.txt";
+            System.out.print("¿Con cuánto va a pagar? Ingrese el monto S/. : ");
+            montoEntregado = escaner.nextDouble();
+            escaner.nextLine();
+            if (montoEntregado < totalAPagar) {
+                System.out.println("❌ ERROR: El monto ingresado es insuficiente. Operación cancelada automáticamente.");
+                return;
+            }
+            vuelto = montoEntregado - totalAPagar;
+            System.out.println(String.format("✔️ Monto aceptado. Su vuelto es: S/.%.2f", vuelto));
+
+        } else if (metodoPago == 2) {
+            tipoPago = "TARJETA";
+            nombreArchivo = "Boleta_Tarjeta_PizzaHut.txt";
+            validaPagoTarjeta(totalAPagar);
+            if (!validaPagoTarjeta(totalAPagar)) {
+                System.out.println("❌ TARJETA RECHAZADA: Fondos insuficientes o error de conexión. Operación cancelada.");
+                return;
+            }
+            System.out.println("✔️ Pago con Tarjeta APROBADO.");
+
+        } else {
+            System.out.println("Operación cancelada por el usuario. Regresando a la tienda.");
+            return;
+        }
+        seleccionarSede();
+        try {
+            FileWriter escritor = new FileWriter(nombreArchivo);
+            escritor.write("         PIZZA HUT S.A.C.       \n");
+            escritor.write("      RUC N° 20100534211        \n");
+            escritor.write("AV. JAVIER PRADO ESTE NRO. 4200 \n");
+            escritor.write("      LIMA - LIMA - SANTIAGO    \n");
+            escritor.write("================================\n");
+            escritor.write("     BOLETA DE VENTA ELECTRÓNICA\n");
+            int numBoleta = (int)(Math.random() * 900000) + 100000;
+            escritor.write("       NRO: B001-" + numBoleta + "\n");
+            escritor.write("================================\n");
+            escritor.write("FECHA EMISION: 19/06/2026 15:05\n");
+            escritor.write("CLIENTE: " + usuarioActivo.toUpperCase() + "\n");
+            escritor.write("MÉTODO DE PAGO: " + tipoPago + "\n");
+            escritor.write("--------------------------------\n");
+            escritor.write(String.format("%-22s %9s\n", "DESCRIPCIÓN", "TOTAL"));
+            escritor.write("--------------------------------\n");
+            for (int i = 0; i < carritoPizza.size(); i++) {
+                String item = "1 " + carritoPizza.get(i);
+                if (item.length() > 21) item = item.substring(0, 21);
+                escritor.write(String.format("%-22s S/.%6.2f\n", item, carritoPrecioPizza.get(i)));
+            }
+            for (int idx : carritoAntojitos) {
+                String item = "1 " + antojitos.get(idx);
+                if (item.length() > 21) item = item.substring(0, 21);
+                escritor.write(String.format("%-22s S/.%6.2f\n", item, preciodeAntojitos.get(idx)));
+            }
+            for (int idx : carritoBebidas) {
+                String item = "1 " + bebidas.get(idx);
+                if (item.length() > 21) item = item.substring(0, 21);
+                escritor.write(String.format("%-22s S/.%6.2f\n", item, precioBebidas.get(idx)));
+            }
+            for (int idx : carritoMegaPromos) {
+                String item = "1 " + megaPromos.get(idx);
+                if (item.length() > 21) item = item.substring(0, 21);
+                escritor.write(String.format("%-22s S/.%6.2f\n", item, precioMegaPromos.get(idx)));
+            }
+            for (int idx : carritoParaMi) {
+                String item = "1 " + paraMi.get(idx);
+                if (item.length() > 21) item = item.substring(0, 21);
+                escritor.write(String.format("%-22s S/.%6.2f\n", item, precioParMI.get(idx)));
+            }
+            double gravada = totalAPagar / 1.18;
+            double igv = totalAPagar - gravada;
+            escritor.write("--------------------------------\n");
+            escritor.write(String.format("%-20s S/.%6.2f\n", "OP. GRAVADA:", gravada));
+            escritor.write(String.format("%-20s S/.%6.2f\n", "I.G.V. 18%:", igv));
+            escritor.write(String.format("%-20s S/.%6.2f\n", "IMPORTE TOTAL:", totalAPagar));
+            if (tipoPago.equals("EFECTIVO")) {
+                escritor.write(String.format("%-20s S/.%6.2f\n", "EFECTIVO ENTREGADO:", montoEntregado));
+                escritor.write(String.format("%-20s S/.%6.2f\n", "VUELTO:", vuelto));
+                escritor.write("================================\n");
+                escritor.write("       ** COMPRA PAGADA ** \n");
+            } else {
+                escritor.write("================================\n");
+                escritor.write("     ** TRANSACCIÓN EXITOSA ** \n");
+                escritor.write("     OPERACIÓN BANCO COMPLETA   \n");
+            }
+            escritor.write("================================\n");
+            escritor.write(" Representación impresa de la   \n");
+            escritor.write("   boleta de venta electrónica   \n");
+            escritor.write("    ¡Gracias por su preferencia! \n");
+            escritor.close();
+            System.out.println("\n📄 Boleta impresa con éxito en el archivo: " + nombreArchivo);
+            System.out.println("¡Transfiriendo orden a la cocina! 🍕🔥");
+            carritoPizza.clear();
+            carritoPrecioPizza.clear();
+            carritoAntojitos.clear();
+            carritoBebidas.clear();
+            carritoMegaPromos.clear();
+            carritoPrecioMegaPromos.clear();
+            carritoParaMi.clear();
+            carritoPrecioParaMi.clear();
+            System.out.println("Tu carrito ha sido limpiado.");
+
+        } catch (IOException e) {
+            System.out.println("❌ Ocurrió un error al generar la boleta física: " + e.getMessage());
+        }
+    }
+    public static boolean validaPagoTarjeta(double total) {
+        String nroTarjeta, fechaVencimiento, cvv;
+        boolean pAprovado = false;
+        double igv = total * 0.18;
+        double subtotal = total - igv;
+        System.out.println("Monto total a pagar con tarjeta es: S/." + total);
+        while (!pAprovado) {
+            System.out.println("Ingrese los 16 dígitos de la tarjeta:");
+            nroTarjeta = escaner.nextLine();
+            System.out.println("Ingrese la fecha de caducidad (MM/AA):");
+            fechaVencimiento = escaner.nextLine();
+            System.out.println("Ingrese el código de seguridad CVV:");
+            cvv = escaner.nextLine();
+
+            boolean tarjetaOk = (nroTarjeta.length() == 16);
+            boolean cvvOk = (cvv.length() == 3);
+            boolean fechaEstructuraOk = (fechaVencimiento.length() == 5 && fechaVencimiento.contains("/"));
+            boolean fechaNoVencida = false;
+
+            if (fechaEstructuraOk) {
+                try {
+                    DateTimeFormatter formateador = DateTimeFormatter.ofPattern("MM/yy");
+                    YearMonth fechaTarjeta = YearMonth.parse(fechaVencimiento, formateador);
+                    YearMonth fechaActual = YearMonth.now();
+                    if (fechaTarjeta.isAfter(fechaActual) || fechaTarjeta.equals(fechaActual)) {
+                        fechaNoVencida = true;
+                    }
+                } catch (DateTimeParseException e) {
+                    fechaEstructuraOk = false;
+                }
+            }
+
+            if (tarjetaOk && fechaEstructuraOk && fechaNoVencida && cvvOk) {
+                System.out.println(" Autorizando fondos... transacción exitosa");
+                System.out.println("=== VISTA PREVIA BANCARIA ===");
+                System.out.println("Op. Gravada: S/." + String.format("%.2f", subtotal));
+                System.out.println("IGV: S/." + String.format("%.2f", igv));
+                System.out.println("Total: S/." + String.format("%.2f", total));
+                pAprovado = true;
+            } else {
+                System.out.println("\n❌ Operación denegada por la pasarela bancaria. Motivos:");
+                if (!tarjetaOk) System.out.println("- El número de tarjeta debe contener exactamente 16 dígitos.");
+                if (!fechaEstructuraOk) System.out.println("- Formato de fecha incorrecto.");
+                if (fechaEstructuraOk && !fechaNoVencida) System.out.println("- Tarjeta caducada.");
+                if (!cvvOk) System.out.println("- El CVV debe contener 3 dígitos.");
+
+                System.out.println("\n¿Desea intentar nuevamente? (1: Sí / 2: Cancelar y cambiar método)");
+                int reintento = escaner.nextInt(); escaner.nextLine();
+                if (reintento != 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
